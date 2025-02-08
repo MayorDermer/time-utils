@@ -8,9 +8,11 @@
 
 #include <chrono>
 
-// get time now with chosen clock
+/// get time now with chosen clock
 #define now() std::chrono::high_resolution_clock::now()
 
+/// use this quite often so worth a define
+#define durr_cast_nano  std::chrono::duration_cast<std::chrono::nanoseconds>
  /**
  * @brief Measure time of execution of a body of code
  * @param body The code to measure
@@ -29,7 +31,7 @@
  * @param body The code to measure
  * @return double nanoseconds passed
  */
-#define _time_ns(body) std::chrono::duration_cast<std::chrono::nanoseconds>(__time(body)).count()
+#define _time_ns(body) durr_cast_nano(__time(body)).count()
 
  /**
  * @brief Measure time of execution of a body of code in microseconds
@@ -62,7 +64,7 @@
 	auto start = now(); \
 	for (int i = 0; i < reps; i++) { body } \
 	auto end = now(); \
-	return std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count(); \
+	return durr_cast_nano(end - start).count(); \
 }()
 
 
@@ -73,7 +75,7 @@
 	auto start = now(); \
 	for (int i = 0; i < reps; i++) { body } \
 	auto end = now(); \
-	return std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count(); \
+	return durr_cast_nano(end - start).count(); \
 }()
 
 /**
