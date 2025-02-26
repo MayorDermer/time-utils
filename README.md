@@ -1,2 +1,2 @@
 # time-utils
-c++ time utilities
+c++ timing utilities
